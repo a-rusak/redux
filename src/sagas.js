@@ -1,6 +1,7 @@
 import { delay } from 'redux-saga';
 import {
   put,
+  take,
   takeEvery,
   takeLatest,
   call
@@ -10,6 +11,7 @@ import {
   success,
   failure,
   async,
+  showWarning,
   increment
 } from './actions';
 import { search } from './api';
@@ -18,18 +20,12 @@ function* helloSaga() {
   yield console.log('Hello Sagas!');
 }
 
-/* function* watchAsync() {
-  yield takeLatest(async, asyncSaga);
-} */
 function* asyncSaga() {
   yield call(delay, 2000);
   yield put(increment(10));
   yield put(request());
 }
 
-/* function* watchFetchData() {
-  yield takeEvery(request, fetchData);
-} */
 function* fetchData(action) {
   try {
     const data = yield call(search, `day`);
@@ -39,8 +35,16 @@ function* fetchData(action) {
   }
 }
 
+function* watchFirstThreeAsyncCall() {
+  for (let i = 0; i < 3; i++) {
+    yield take(async);
+  }
+  yield put(showWarning(`Allo!`));
+}
+
 export default function* rootSaga() {
   yield helloSaga();
   yield takeEvery(request, fetchData);
   yield takeLatest(async, asyncSaga);
+  yield watchFirstThreeAsyncCall();
 }

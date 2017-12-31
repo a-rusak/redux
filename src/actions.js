@@ -18,5 +18,4 @@ export const {
 });
 
 export const async = createAction('ASYNC');
-// export const increment = createAction('INCREMENT');
-// export const decrement = createAction('DECREMENT');
+export const showWarning = createAction('SHOW_WARNING');
