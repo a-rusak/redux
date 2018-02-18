@@ -8,7 +8,7 @@ import {
 import { handleAction, handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
 
-const counter = handleActions(
+export const counter = handleActions(
   {
     [increment]: (state, action) => ({
       value: state.value + action.payload
@@ -38,6 +38,7 @@ const warning = handleAction(
   (state, action) => action.payload,
   ``
 );
+export const getWarning = state => state.warning;
 
 export default combineReducers({
   counter,

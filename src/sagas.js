@@ -16,17 +16,19 @@ import {
 } from './actions';
 import { search } from './api';
 
-function* helloSaga() {
-  yield console.log('Hello Sagas!');
+export function* helloSaga() {
+  const helloSagaMsg = 'Hello Sagas!'
+  yield helloSagaMsg;
+  console.log(helloSagaMsg);
 }
 
-function* asyncSaga() {
+export function* asyncSaga() {
   yield call(delay, 2000);
   yield put(increment(10));
   yield put(request());
 }
 
-function* fetchData(action) {
+export function* fetchData(action) {
   try {
     const data = yield call(search, `day`);
     yield put(success(data));

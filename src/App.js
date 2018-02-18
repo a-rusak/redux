@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import { increment, decrement, async } from './actions';
 import { connect } from 'react-redux';
-import { getCounterValue } from './reducers';
+import { getCounterValue, getWarning } from './reducers';
 
-class App extends Component {
+export class App extends Component {
   onPlus = evt => {
-    evt.preventDefault();
+    evt && evt.preventDefault();
     const { increment } = this.props;
     increment(1);
   };
 
   onMinus = evt => {
-    evt.preventDefault();
+    evt && evt.preventDefault();
     const { decrement } = this.props;
     decrement(1);
   };
 
   onAsync = evt => {
-    evt.preventDefault();
+    evt && evt.preventDefault();
     const { async } = this.props;
     async();
   };
@@ -25,17 +25,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <button onClick={this.onPlus}>+</button>
+        <button className="plus" onClick={this.onPlus}>+</button>
         <button onClick={this.onMinus}>-</button>
         <button onClick={this.onAsync}>async</button>
-        <label htmlFor="">{this.props.counterValue}</label>
+        <label className="counter-value" htmlFor="">{this.props.counterValue}</label>
+        <label htmlFor="">{this.props.warn}</label>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  counterValue: getCounterValue(state)
+  counterValue: getCounterValue(state),
+  warn: getWarning(state)
 });
 
 const mapDispatchToProps = {
